@@ -69,7 +69,7 @@ const FlipCard = ({
 FlipCard.defaultProps = {
     slot1: <Text>Front Side</Text>,
     slot2: <Text>Back Side</Text>,
-    stylesSlot1: {width:'100%'},
+    stylesSlot1: { width: '100%' },
     stylesSlot2: { width: '100%' },
     onPress: () => console.log('Flipping card'),
 };

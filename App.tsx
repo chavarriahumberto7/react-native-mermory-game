@@ -14,6 +14,7 @@ import {SafeAreaView, StatusBar, StyleSheet, Text, View,Image} from 'react-nativ
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Card from './src/components/Card';
 import FlipCard from './src/components/FlipCard';
+import PlayingScreen from './src/screens/PlayingScreen';
 import PlayScreen from './src/screens/PlayScreen';
 
 const styleImage = { height: '95%', width: '95%' }
@@ -23,14 +24,7 @@ const App = () => (
  
     
   <SafeAreaView style={styles.sectionContainer}>
-    <FlipCard slot1={<Text>Front</Text>}
-      slot2={<Image
-        source={imageSource}
-        
-      />}
-      stylesSlot2={styleImage}
-    
-    />
+    <PlayingScreen />
   </SafeAreaView>
 );
 
