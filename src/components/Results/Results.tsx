@@ -34,10 +34,10 @@ const Results = () => {
                     <Text style={{ ...slotStyle, fontSize: 20 }}>Moves</Text>
                 </View>
             </View>
-            <View style={styles.timeContainer}>
+            <View style={styles.timing}>
                 <View><Text style={[slotStyle, styles.timeText]}>Time:</Text></View>
                 <View>
-                    <Text>{timeSeconds}</Text>
+                    <Text style={slotStyle}>{timeSeconds}</Text>
                 </View>
             </View>
         </View>
@@ -80,7 +80,13 @@ const styles = StyleSheet.create({
 
 
 
-    }
+    },
+    timing: {
+        flexDirection: 'row',
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default Results;
