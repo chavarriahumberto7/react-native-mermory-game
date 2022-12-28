@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useRef, useState,cloneElement} from 'react';
+import React, { useRef, useState, cloneElement, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,23 +13,43 @@ const FlipCard = ({
     slot1,
     stylesSlot1,
     slot2, stylesSlot2,
-    onPress,
+  onPress,
+  isFlipped,
+  element,
+  id,
 
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  // const [isFlipped, setIsFlipped] = useState(false);
 
+  const node = useRef(false);
     const animateY = useRef(new Animated.Value(0));
 
-    const flipCard = () => {
+  /* const flipCardBack = () => {
+    Animated.timing(animateY.current, {
+      duration: 300,
+      toValue: 0,  // usa -180 en lugar de 180
+      useNativeDriver: true,
+    }).start();
+  }; */
+
+  const flipCard = () => {
         Animated.timing(animateY.current, {
             duration: 300,
-            toValue: isFlipped ? 0 : 180,
+          toValue: isFlipped ? 180 : 0,
             useNativeDriver: true,
-        }).start(() => {
-            onPress();
-            setIsFlipped(!isFlipped);
-        });
-    };
+        }).start();
+  };
+
+  const updating = () => {
+    console.log({ isFlipped });
+    flipCard();
+    // flipCardBack();
+  };
+
+  useEffect(() => {
+    updating();
+
+  }, [isFlipped]);
 
   const frontAnimatedStyle = {
     transform: [
@@ -53,7 +73,11 @@ const FlipCard = ({
     ],
   };
     return (
-        <TouchableOpacity onPress={flipCard} style={{...styles.cardContainer,width:width,height:height}}>
+      <TouchableOpacity key={id}
+        disabled={isFlipped}
+        onPress={() => { onPress(element) }}
+        style={{ ...styles.cardContainer, width: width, height: height }}
+      >
                  <View style={[styles.cardContainer]}>
                 <Animated.View style={[styles.card, frontAnimatedStyle]}>
                     {cloneElement(slot1,{style: stylesSlot1})}
@@ -87,11 +111,9 @@ const styles = StyleSheet.create({
     card: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#f1f1f1',
+      backgroundColor: 'rgba(255,255,255,0.2)',
         alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor:'#f1f1f1',
+      justifyContent: 'center',
     },
     back: {
         position: 'absolute',

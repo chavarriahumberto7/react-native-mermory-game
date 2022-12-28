@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -9,23 +10,29 @@
  */
 
 import React, {type PropsWithChildren} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View,Image} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Card from './src/components/Card';
-import FlipCard from './src/components/FlipCard';
+} from 'react-native';
 import PlayingScreen from './src/screens/PlayingScreen';
-import PlayScreen from './src/screens/PlayScreen';
-
-const styleImage = { height: '95%', width: '95%' }
-const imageSource= require('./assets/images/icons/butterfly.png')
+import { Provider } from 'react-redux';
+import store from './src/store/store';
+import LinearGradient from 'react-native-linear-gradient';
 const App = () => (
-
- 
-    
-  <SafeAreaView style={styles.sectionContainer}>
-    <PlayingScreen />
-  </SafeAreaView>
+  <LinearGradient
+    colors={['rgb(63, 94, 251)', 'rgba(252, 70, 107, 1)']}
+    style={{
+      flex: 1,
+      color: 'white',
+    }}>
+    <SafeAreaView style={styles.sectionContainer}>
+      <Provider store={store}>
+        <PlayingScreen />
+      </Provider>
+    </SafeAreaView>
+  </LinearGradient>
 );
 
 const styles = StyleSheet.create({

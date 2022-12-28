@@ -9,7 +9,7 @@ export const PlayScreen = () => {
     const [tests, setState] = useState({['mp3 in bundle (looped)']: 'win' });
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
+            // flex: 1,
         },
         scrollContainer: {},
         title: {
@@ -128,5 +128,6 @@ export const PlayScreen = () => {
       </View>
   );
 };
+
 
 export default PlayScreen;

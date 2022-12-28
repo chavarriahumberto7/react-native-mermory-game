@@ -1,14 +1,82 @@
 /* eslint-disable prettier/prettier */
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import React from 'react';
+import CircleButton from '../CircleButton/CircleBurron';
+import { useSelector } from 'react-redux';
 
 const Results = () => {
+    const { myGame: { goodMoves, totalMoves, timeSeconds } } = useSelector(state => state);
+    const slotLevel = <Text>1</Text>;
+    const slotGoodMoves = <Text>{goodMoves}</Text>;
+    const slotTotalMoves = <Text>{totalMoves}</Text>;
+    const slotStyle = { fontSize: 30, color: 'white', fontWeight: 'bold' };
     return (
-        <View>
-            <Text>Results</Text>
+        <View style={styles.container} >
+            <View style={styles.cardContainer}>
+                <View style={styles.card}>
+
+                    <CircleButton slot={slotLevel} slotStyle={slotStyle} />
+                    <Text style={{ ...slotStyle, fontSize: 20 }}>Level</Text>
+                </View>
+                <View style={styles.card}>
+
+                    <CircleButton slot={slotGoodMoves} slotStyle={slotStyle} />
+                    <Text style={{ ...slotStyle, fontSize: 20 }}>Success</Text>
+
+                </View>
+                <View style={styles.card}>
+                    <CircleButton slot={slotTotalMoves} slotStyle={slotStyle} />
+                    <Text style={{ ...slotStyle, fontSize: 20 }}>Moves</Text>
+                </View>
+            </View>
+            <View style={styles.timeContainer}>
+                <View><Text style={[slotStyle, styles.timeText]}>Time:</Text></View>
+                <View>
+                    <Text>{timeSeconds}</Text>
+                </View>
+            </View>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom: 5,
+        marginTop: 5,
+    },
+    cardContainer: {
+        flexDirection: 'row',
+        height: 120,
+        margin: 5,
+        marginLeft: 5,
+        justifyContent: 'space-around',
+    },
+    card: {
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+
+    },
+    timeContainer: {
+        margin: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+
+
+    },
+    timeText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginRight: 5,
+
+
+
+    }
+});
 
 export default Results;
 

@@ -55,6 +55,12 @@ export const ICONS = {
       isRequire: true,
       url: require('../../assets/images/icons/ninja.png'),
     },
+    {
+      id: 10,
+      title: 'diamonds',
+      isRequire: true,
+      url: require('../../assets/images/icons2/diamonds.png'),
+    },
   ],
   setIcons2: [
     {
@@ -104,6 +110,12 @@ export const ICONS = {
       title: 'tree',
       isRequire: true,
       url: require('../../assets/images/icons2/tree.png'),
+    },
+    {
+      id: 9,
+      title: 'diamonds',
+      isRequire: true,
+      url: require('../../assets/images/icons2/diamonds.png'),
     },
   ],
 };
