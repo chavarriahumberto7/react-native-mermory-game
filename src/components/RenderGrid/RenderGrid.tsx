@@ -5,24 +5,14 @@ import FlipCard from './FlipCard';
 import { ICONS } from '../../../dataBase';
 import { useToggle } from '../../hooks/useToggle';
 import { useSelector } from 'react-redux';
-/* interface Props {
-    matrix?: number[][],
-} */
-// export const RenderGrid = ({ matrix }: Props) => {
+
 export const RenderGrid = () => {
 
     const cardWidthHeight = useRef({ width: 70, height: 80 });
 
-    // const { uncover, newMatrix } = useToggle();
     const { uncover } = useToggle();
     const { newMatrix } = useSelector(state => state.myGame)
 
-    const [cards, setCards] = useState();
-
-
-
-
-    // const { gameIsActive } = useSelector(state => state.myGame)
     const { setIcons1: setIcons } = ICONS;
     const frontIcon = setIcons.filter(el => el.title === 'diamonds');
     const width = Dimensions.get('screen').width;
@@ -33,40 +23,11 @@ export const RenderGrid = () => {
         const newHeight = Math.ceil(newWidth * 1.14);
         cardWidthHeight.current = { width: newWidth, height: newHeight };
 
-        //* Setting matrix to use,
-        // setCards(newMatrix);
     };
 
-    function triggerReRender() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // resolve the promise after a delay of 1000 milliseconds (1 second)
-                resolve();
-            }, 500);
-        });
-    }
-
-    // trigger the re-render when the promise is resolved
-
-
     const handleCardFlip = (element) => {
-        // TODO remove
-        console.log('uncovering');
+
         uncover({ element });
-        /* setCards(() => {
-            return newMatrix.current;
-        }); */
-
-        triggerReRender().then(() => {
-            setCards(() => {
-                return newMatrix.current;
-            });
-            // re-render the component here
-        }).catch((err) => {
-            console.log({ err });
-        });
-
-
     };
 
     useEffect(() => {

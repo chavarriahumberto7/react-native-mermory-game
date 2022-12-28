@@ -19,18 +19,8 @@ const FlipCard = ({
   id,
 
 }) => {
-  // const [isFlipped, setIsFlipped] = useState(false);
 
-  const node = useRef(false);
     const animateY = useRef(new Animated.Value(0));
-
-  /* const flipCardBack = () => {
-    Animated.timing(animateY.current, {
-      duration: 300,
-      toValue: 0,  // usa -180 en lugar de 180
-      useNativeDriver: true,
-    }).start();
-  }; */
 
   const flipCard = () => {
         Animated.timing(animateY.current, {
@@ -41,9 +31,7 @@ const FlipCard = ({
   };
 
   const updating = () => {
-    console.log({ isFlipped });
     flipCard();
-    // flipCardBack();
   };
 
   useEffect(() => {

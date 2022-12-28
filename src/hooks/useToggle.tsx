@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     addGoodMoves,
@@ -21,19 +21,12 @@ export const useToggle = () => {
 
     const value1 = useRef(null);
     const value2 = useRef(null);
-    // const isMatched = useRef(false);
-
-
 
     const [toggleCard, setToggleCard] = useState(false);
     const isComputing = useRef(false);
 
     const dispatch = useDispatch();
 
-    // * setting the sounds to play
-    /*   const flip = new Audio('../../assets/sounds/flip.wav')
-      const success = new Audio('../../assets/sounds/success2.wav')
-      const unsuccess = new Audio('../../assets/sounds/unsuccess.wav') */
     const updateNewMatrix = (
         { element }
     ) => {
@@ -52,9 +45,7 @@ export const useToggle = () => {
 
     };
 
-    const restoreMatrix = (
-        // { cards }
-    ) => {
+    const restoreMatrix = () => {
         const cards = newMatrix;
 
         return cards.map((row) => row.map(card => {
@@ -114,14 +105,11 @@ export const useToggle = () => {
     function triggerReRender() {
         return new Promise((resolve) => {
             setTimeout(() => {
-                // resolve the promise after a delay of 1000 milliseconds (1 second)
-                resolve();
+                // resolve the promise after a delay of 200 milliseconds (1 second)
+                resolve(1);
             }, 200);
         });
     }
-
-    // trigger the re-render when the promise is resolved
-
 
 
     const handleMove = () => {
@@ -134,7 +122,6 @@ export const useToggle = () => {
 
                 setToggleCard(false);
                 addToWins();
-                // success.play()
                 playSound(media.success2);
                 isComputing.current = false;
 
@@ -142,17 +129,12 @@ export const useToggle = () => {
             else {
                 isComputing.current = true;
 
-                // const startTimer = setTimeout(() => {
+                playSound(media.unsuccesa);
                 triggerReRender().then(() => {
-                    // re-render the component here
                     setToggleCard(false);
-                    // newMatrix.current = restoreMatrix({ cards });
                     dispatch(setMatrix(restoreMatrix()));
                     isComputing.current = false;
-                    playSound(media.unsuccesa);
-                    // unsuccess.play()
 
-                    // clearInterval(startTimer);
                 }).catch(err => {
                     console.log({ err });
                 }).finally(() => {
