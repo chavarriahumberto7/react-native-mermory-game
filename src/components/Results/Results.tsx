@@ -1,11 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { Text, View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import CircleButton from '../CircleButton/CircleBurron';
 import { useSelector } from 'react-redux';
 
+
 const Results = () => {
-    const { myGame: { goodMoves, totalMoves, timeSeconds } } = useSelector(state => state);
+    const { goodMoves, totalMoves, timeSeconds } = useSelector(state => state.myGame);
+
+
+
+
     const slotLevel = <Text>1</Text>;
     const slotGoodMoves = <Text>{goodMoves}</Text>;
     const slotTotalMoves = <Text>{totalMoves}</Text>;

@@ -17,7 +17,7 @@ export const useToggle = () => {
 
     const { playSound } = usePlayer();
     const media = useMedia(SOUNDS);
-    const { myGame: { gameIsActive, newMatrix } } = useSelector(state => state)
+    const { newMatrix, goodMoves } = useSelector(state => state.myGame);
 
     const value1 = useRef(null);
     const value2 = useRef(null);
@@ -71,6 +71,8 @@ export const useToggle = () => {
     const uncover = ({ element }) => {
 
         const buttonNode = element;
+
+
 
 
         if (!isComputing.current) {

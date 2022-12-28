@@ -1,5 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { createSlice } from '@reduxjs/toolkit';
+import { SOUNDS } from '../../dataBase';
+import useMedia from '../hooks/useMedia';
+import usePlayer from '../hooks/usePlayer';
+
 
 
 export const gameSlice = createSlice({
@@ -7,7 +11,7 @@ export const gameSlice = createSlice({
     initialState: {
         goodMoves: 0,
         totalMoves: 0,
-        timeSeconds: 10,
+        timeSeconds: 30,
         gameIsActive: false,
         newMatrix: null,
         node1: null,
@@ -17,6 +21,10 @@ export const gameSlice = createSlice({
     reducers: {
         addGoodMoves: (state) => {
             state.goodMoves += 1;
+            // console.log(state.goodMoves);
+            if (state.goodMoves === 8) {
+                state.gameIsActive = false;
+            }
 
         },
         addTotalMoves: (state) => {
@@ -26,7 +34,12 @@ export const gameSlice = createSlice({
             state.timeSeconds = value.payload;
         },
         decrementTimeInSeconds: (state) => {
-            state.timeSeconds -= 1;
+            if (state.gameIsActive) {
+                if (state.timeSeconds !== 0) {
+                    state.timeSeconds -= 1;
+                }
+
+            }
         },
         toggleGameActive: (state) => {
             if (state.gameIsActive) {

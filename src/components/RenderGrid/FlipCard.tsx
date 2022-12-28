@@ -62,6 +62,7 @@ const FlipCard = ({
   };
     return (
       <TouchableOpacity key={id}
+        activeOpacity={0.6}
         disabled={isFlipped}
         onPress={() => { onPress(element) }}
         style={{ ...styles.cardContainer, width: width, height: height }}

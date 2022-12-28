@@ -1,14 +1,86 @@
 /* eslint-disable prettier/prettier */
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import React, { useRef } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleGameActive, decrementTimeInSeconds, setTimeInSeconds } from '../../store/gameSlice';
+import useMedia from '../../hooks/useMedia';
+import usePlayer from '../../hooks/usePlayer';
+import { SOUNDS } from '../../../dataBase';
+
 const Header = () => {
+
+    const TOTAL_SECONDS = 50;
+
+    const dispatch = useDispatch();
+    const { gameIsActive, timeSeconds } = useSelector(state => state.myGame);
+    const seconds = useRef(TOTAL_SECONDS);
+    const media = useMedia(SOUNDS);
+    const { playSound } = usePlayer();
+
+    function triggerReRender() {
+        return new Promise((resolve) => {
+            const newTimer = setTimeout(() => {
+                // resolve the promise after a delay of 1000 milliseconds (1 second)
+                resolve(1);
+                clearTimeout(newTimer);
+            }, 1000);
+        });
+    }
+    const handleGameStatus = () => {
+        if (timeSeconds !== 0 && seconds.current !== 0) {
+
+            dispatch(decrementTimeInSeconds());
+            seconds.current -= 1;
+            if (!gameIsActive) {
+                startTimer();
+            }
+        }
+        else {
+            dispatch(toggleGameActive());
+            playSound(media.lose);
+        }
+    };
+    const startTimer = () => {
+
+
+        triggerReRender().then(() => {
+            // re-render the component hereº
+            handleGameStatus();
+
+        }).catch(err => {
+            console.log({ err });
+        });
+    };
+
+
+
+    const goBack = () => {
+
+        dispatch(toggleGameActive());
+
+        if (!gameIsActive) {
+            seconds.current = TOTAL_SECONDS;
+            dispatch(setTimeInSeconds(seconds.current));
+            startTimer();
+            // startTimer();
+        }
+        else {
+            seconds.current = 0;
+        }
+
+
+    };
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={goBack}>
                 <View style={styles.buttonContent} >
                     <Text>
-                        <Icon name="chevron-left" size={30} color="#900" />;
+                        {
+                            gameIsActive ? (<Icon name="pause-circle" size={30} color="#fafa" />)
+                                : (<Icon name="play-circle" size={30} color="rgba(0,0,0,0.4)" />)
+                        }
                     </Text>
 
                 </View>

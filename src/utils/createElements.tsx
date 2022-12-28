@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ICONS } from "../../dataBase";
-export const createMatrix = ({ matrixType }) => {
+export const createMatrix = ({ matrixType, gameIsActive }) => {
     // * creating array  to fill in the table
     const maxValue = Math.pow(matrixType, 2) / 2;
     const valueArrays = [];
@@ -23,7 +23,7 @@ export const createMatrix = ({ matrixType }) => {
         for (let j = 0; j < matrixType; j++) {
             row.push({
                 id: counter + 1,
-                isFlipped: false,
+                isFlipped: !gameIsActive,
                 row: index,
                 col: j,
                 value: valueArrays[counter],
